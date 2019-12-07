@@ -1,18 +1,26 @@
 import random,os
 import speech_recognition as sr
 from selenium import webdriver
-import wolframalpha,gtts,pyttsx3
-import datetime,wikipedia,time
+import wolframalpha,pyttsx3,json
+import datetime,wikipedia,time,smtplib
 
 engine=pyttsx3.init('sapi5')
 client=wolframalpha.Client('JGQG46-Y5WTEL7J5G')
 voice=engine.getProperty('voices')
-engine.setProperty('voices',voice[len(voice)-1].id)
-engine.setProperty('rate', 200)
+engine.setProperty('voices',voice[len(voice)-3].id)
+speed=200
+message=''
+neg=1
+engine.setProperty('rate', speed)
 options = webdriver.ChromeOptions()
+
+with open('C:\\Users\\tusha\Desktop\json file\\intents.json') as f:
+    data=json.load(f)
 
 ###########model here#######################
 def reply(text_inp):
+    if 'hey' in text_inp or 'hello' in text_inp:
+        speak('Hey sir...')
     text=random.choice(['hey there','how are you??','may i help you??','ha ha LOL','I am fine...'])
     speak(text)
 ############model here#####################
@@ -23,11 +31,15 @@ def speak(text):
     engine.runAndWait()
 c=0
 def listen():
-    global c
-    speak('How can I help?')
+    global c,speed,neg
     r=sr.Recognizer()
     text=''
     with sr.Microphone() as source:
+        time.sleep(2)
+        if neg==-1:
+            speak('NOW START!')
+        else:
+            speak('How can I help?')
         audio=r.listen(source)
         try:
             text=r.recognize_google(audio)
@@ -45,7 +57,16 @@ def listen():
         commands=text.split(' ')
         for i in range(len(commands)):
             commands[i]=commands[i].lower()
-        if 'wait' in commands:
+        if 'speak' in commands and 'fast' in commands:
+            speak('Speeding myself up!!')
+            speed=min(600,50+speed)
+            engine.setProperty('rate', speed)
+        elif ('email' in commands and 'write' in commands) or neg==-1:
+            write_email(commands)
+        elif 'speak'in commands and 'slow' in commands:
+            speak('Slowing myself down!!')
+            speed=max(50,abs(50-speed))
+        elif 'wait' in commands:
             speak('I am waiting...')
             time.sleep(5)
             speak('I waited for 5 seconds...')
@@ -62,6 +83,24 @@ def listen():
             search_command(commands)
         else:
             reply(text)
+recipent=''
+def write_email(message=[]):
+    global neg,recipent
+    message=' '.join(message)
+    s=smtplib.SMTP('smtp.gmail.com',587)
+    s.starttls()
+    neg*=-1
+    if neg==-1:
+        speak('Tell name of recipent')
+        recipent=input('Recipent : ')
+        speak('Now write the message')
+        listen()
+    elif neg==1:
+        s.login('rsiddhant73@gmail.com','#pokemon911')
+        s.sendmail('rsiddhant73@gmail.com',
+                    recipent,msg=message)
+        s.quit()
+        speak('Email has been sent to => {}'.format(recipent))
 
 def play_song(commands):
     id='https://www.soundcloud.com/search/sounds?q='
@@ -91,7 +130,10 @@ def search_command(commands):
         opt=opt.split('(')[0]
     else:
         speak('searching...')
-        query=' '.join(commands[1:])
+        if 'what' not in commands:
+            query=' '.join(commands[1:])
+        else:
+            query=' '.join(commands)
         try:
             try:
                 "BOT : Sure Sir!\nSearching for {}".format(query)
