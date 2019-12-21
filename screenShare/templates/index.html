@@ -73,25 +73,6 @@
 			var image = document.getElementById("one");
 			image.src="{{url_for('calc')}}"
 		  }
-		  function click_det(event)
-		  {
-		  x=event.clientX;
-		  y=event.clientY;
-		  data=(x-374)+" "+(y-222)+" ";
-		  fruits.push(data);
-		  }
-
-		  function sep()
-		  {
-		  fruits.push("# ");
-		  }
-
-	      function save_it(event)
-	      {
-	      alert(fruits);
-	      var blob=new Blob(fruits,{type:"text/plain;charset=utf-8"});
-		  saveAs(blob,"coord.txt");
-		  }
 
 	  </script>
 
@@ -99,10 +80,7 @@
 	  <marquee><h3 style="color:white">before clicking any button refresh the page first</h3></marquee>
 	  <h3>single click as per the shape you want</h3>
 	  <h3>Double click if you want to draw new polygon</h3>
-		<button id="b1" type="button" onclick="start(event)">temper detection</button>
-	  <button id="b2" type="button" onclick="start2()">Intrusion detection</button>
-	  <button id="b3" type="button" onclick="start3()">color detection</button>
-	  <button id="b4" type="button" onclick="save_it()">SAVE</button>
+		<button id="b1" type="button" onclick="start(event)">START SCREEN SHARE</button>
 	  <center><img src="hey there" border="5" align="middle" id="one" onclick="click_det(event)" ondblclick="sep()"></center>
 	  </body>
 	</html>
