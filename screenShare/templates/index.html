@@ -1,0 +1,108 @@
+<html>
+	  <head>
+	    <title>Video Streaming Demonstration</title>
+	  </head>
+	  <body bgcolor="white">
+
+	  <style>
+		  body{
+		  background-color:white;
+		  }
+		#name
+		{
+		color:purple;
+		}
+		marquee{
+		background-color:purple;
+		border-radius: 8px;
+		}
+		  img {
+  			border: 1px solid #ddd;
+ 			 border-radius: 4px;
+			  padding: 5px;
+			  width=auto;
+			  height=auto;
+ 			 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+
+		button{
+		border-radius:5px;
+		}
+
+		#b1{
+			background-color:purple;
+			width:auto;
+			height:60px;
+			color:white;
+			display:block
+			border: 1px solid black;
+  			margin-top: 10px;
+  			margin-left: 2px;
+  			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+		#b2{
+			background-color:purple;
+			width:auto;
+			height:60px;
+			color:white;
+			display:block
+			margin-top: 10px;
+  			margin-left: 20px;
+  			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+
+		#b3{
+			background-color:purple;
+			width:auto;
+			height:60px;
+			color:white;
+			display:block
+			margin-top: 10px;
+  			margin-left: 20px;
+  			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+
+
+	  </style>
+
+	  <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+	  <script type="text/javascript">
+		  var fruits=[];
+		  function start()
+		  {
+			var image = document.getElementById("one");
+			image.src="{{url_for('calc')}}"
+		  }
+		  function click_det(event)
+		  {
+		  x=event.clientX;
+		  y=event.clientY;
+		  data=(x-374)+" "+(y-222)+" ";
+		  fruits.push(data);
+		  }
+
+		  function sep()
+		  {
+		  fruits.push("# ");
+		  }
+
+	      function save_it(event)
+	      {
+	      alert(fruits);
+	      var blob=new Blob(fruits,{type:"text/plain;charset=utf-8"});
+		  saveAs(blob,"coord.txt");
+		  }
+
+	  </script>
+
+	  <div id="name"><h1 align="center">INTERNSHIP PROJECT 1</h1></div>
+	  <marquee><h3 style="color:white">before clicking any button refresh the page first</h3></marquee>
+	  <h3>single click as per the shape you want</h3>
+	  <h3>Double click if you want to draw new polygon</h3>
+		<button id="b1" type="button" onclick="start(event)">temper detection</button>
+	  <button id="b2" type="button" onclick="start2()">Intrusion detection</button>
+	  <button id="b3" type="button" onclick="start3()">color detection</button>
+	  <button id="b4" type="button" onclick="save_it()">SAVE</button>
+	  <center><img src="hey there" border="5" align="middle" id="one" onclick="click_det(event)" ondblclick="sep()"></center>
+	  </body>
+	</html>
