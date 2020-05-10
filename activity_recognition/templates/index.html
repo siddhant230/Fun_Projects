@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+
+    <style>
+        .card{
+         width:500px;
+         height : 500px;
+          top: 80%;
+          left: 50%;
+           border-radius:9px;
+          box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+         background-color: #9e9e9e;
+         }
+
+         .card:hover{
+         border-radius:9px;
+         box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
+         }
+         .container{
+         padding : 2px 16px;
+         }
+
+         h1{
+         letter-spacing:5px;
+         border-radius:9px;
+         text-shadow:2px 2px 5px grey;
+         color : #00ffaa;
+         }
+
+         #x{
+         border-radius:9px;
+         font-size:16pt;
+         width : 255px;
+         height : 35px;
+         }
+
+         #y{
+         border-radius:9px;
+         font-size:16pt;
+         width : 255px;
+         height : 35px;
+         }
+
+         #z{
+         border-radius:9px;
+         font-size:16pt;
+         width : 255px;
+         height : 35px;
+         }
+
+    </style>
+
+</head>
+<body bgcolor="#00ccaa">
+  <!---->
+  <h1 align="center" style="background-color: #9e9e9e;">ACTIVITY RECOGNITION</h1>
+    <center>
+      <div class="card">
+         <div class="container">
+               <form method="post" id="f_id">
+                   <h1>X :
+                   <input name="id_x" type="number" required autofocus id="x" value="{{x}}"></h1><br /><br />
+
+                   <h1>Y :
+                   <input name="id_y" type="number"  required autofocus id="y" value="{{y}}"> </h1><br /><br />
+
+                   <h1>Y :
+                   <input name="id_z" type="number" required autofocus id="z" value="{{z}}"> </h1><br /><br />
+
+                   <h2>Your action is : {{content}}</h2>
+
+               </form>
+         </div>
+      </div>
+     </center>
+
+  <script>
+     setTimeout(function(){
+           document.forms["f_id"].submit();
+        }, 500);
+
+    if(window.DeviceMotionEvent){
+          window.addEventListener("devicemotion", motion, false);
+        }else{
+          alert("DeviceMotionEvent is not supported");
+        }
+
+    function motion(event){
+      document.getElementById("x").value = event.accelerationIncludingGravity.x;
+      document.getElementById("y").value = event.accelerationIncludingGravity.y;
+      document.getElementById("z").value = event.accelerationIncludingGravity.z;
+
+    }
+    </script>
+</body>
+</html>
