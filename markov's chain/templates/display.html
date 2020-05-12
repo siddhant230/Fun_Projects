@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>display markov</title>
+</head>
+<style>
+    #essay{
+        width : 700px;
+        height : 600px;
+    }
+
+</style>
+<body>
+<form id = "f_id" method="post">
+    <h3>{{topic}}</h3>
+    <textarea name = "textall" id ="essay">{{begin}}</textarea>
+</form>
+
+<script>
+
+    setTimeout(function(){
+           document.forms["f_id"].submit();
+        }, 500);
+
+</script>
+
+</body>
+</html>
